@@ -41,5 +41,20 @@ func main() {
 		w.WriteHeader(http.StatusOK)
 	})
 
+	http.HandleFunc("/add-node", func(w http.ResponseWriter, r *http.Request) {
+		var body struct {
+			Address string `json:"address"`
+		}
+
+		if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+		}
+
+		log.Printf("adding new node: %s", body.Address)
+		cd.AddNode(body.Address)
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("Node addition process started"))
+	})
+
 	log.Fatal(http.ListenAndServe(":6969", nil))
 }

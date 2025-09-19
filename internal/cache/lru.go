@@ -58,11 +58,9 @@ func (d *DLL) evictLRU() *dllNode {
 	return node
 }
 
-type KEY string
-
 type LruCache struct {
 	capacity int
-	cache    map[KEY]*dllNode
+	cache    map[string]*dllNode
 	dll      *DLL
 	mu       sync.RWMutex
 }
@@ -70,7 +68,7 @@ type LruCache struct {
 func NewLruCache(cap int) *LruCache {
 	return &LruCache{
 		capacity: cap,
-		cache:    map[KEY]*dllNode{},
+		cache:    map[string]*dllNode{},
 		dll:      &DLL{},
 	}
 }
@@ -79,9 +77,9 @@ const (
 	ERRKEYNOTFOUND = "key not found"
 )
 
-func (c *LruCache) get(key KEY) (string, error) {
-	c.mu.RLock()
-	defer c.mu.RUnlock()
+func (c *LruCache) get(key string) (string, error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	if node, ok := c.cache[key]; ok {
 		c.dll.moveToFront(node)
 		return node.value, nil
@@ -89,9 +87,9 @@ func (c *LruCache) get(key KEY) (string, error) {
 	return "", errors.New(ERRKEYNOTFOUND)
 }
 
-func (c *LruCache) set(key KEY, value string) bool {
-	c.mu.RLock()
-	defer c.mu.RUnlock()
+func (c *LruCache) set(key string, value string) bool {
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	if node, ok := c.cache[key]; ok {
 		node.value = value
 		c.dll.moveToFront(node)
@@ -100,7 +98,7 @@ func (c *LruCache) set(key KEY, value string) bool {
 	if len(c.cache) >= c.capacity {
 		evicted := c.dll.evictLRU()
 		if evicted != nil {
-			delete(c.cache, KEY(evicted.key))
+			delete(c.cache, evicted.key)
 		}
 	}
 
@@ -110,5 +108,45 @@ func (c *LruCache) set(key KEY, value string) bool {
 	}
 	c.dll.moveToFront(newNode)
 	c.cache[key] = newNode
+	return true
+}
+
+func (c *LruCache) GetAllKeys() []string {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+
+	keys := make([]string, 0, len(c.cache))
+	for k := range c.cache {
+		keys = append(keys, k)
+	}
+	return keys
+}
+
+func (c *LruCache) delete(key string) bool {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	node, ok := c.cache[key]
+	if !ok {
+		return false
+	}
+
+	if node.prev != nil {
+		node.prev.next = node.next
+	}
+
+	if node.next != nil {
+		node.next.prev = node.prev
+	}
+
+	if c.dll.front == node {
+		c.dll.front = node.next
+	}
+
+	if c.dll.back == node {
+		c.dll.back = node.prev
+	}
+
+	delete(c.cache, key)
 	return true
 }

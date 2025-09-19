@@ -213,6 +213,174 @@ func (x *SetResponse) GetSuccess() bool {
 	return false
 }
 
+type GetAllKeysRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAllKeysRequest) Reset() {
+	*x = GetAllKeysRequest{}
+	mi := &file_shared_proto_cache_node_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAllKeysRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAllKeysRequest) ProtoMessage() {}
+
+func (x *GetAllKeysRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_shared_proto_cache_node_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAllKeysRequest.ProtoReflect.Descriptor instead.
+func (*GetAllKeysRequest) Descriptor() ([]byte, []int) {
+	return file_shared_proto_cache_node_proto_rawDescGZIP(), []int{4}
+}
+
+type GetAllKeysResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Keys          []string               `protobuf:"bytes,1,rep,name=keys,proto3" json:"keys,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAllKeysResponse) Reset() {
+	*x = GetAllKeysResponse{}
+	mi := &file_shared_proto_cache_node_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAllKeysResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAllKeysResponse) ProtoMessage() {}
+
+func (x *GetAllKeysResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_shared_proto_cache_node_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAllKeysResponse.ProtoReflect.Descriptor instead.
+func (*GetAllKeysResponse) Descriptor() ([]byte, []int) {
+	return file_shared_proto_cache_node_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *GetAllKeysResponse) GetKeys() []string {
+	if x != nil {
+		return x.Keys
+	}
+	return nil
+}
+
+type DeleteRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteRequest) Reset() {
+	*x = DeleteRequest{}
+	mi := &file_shared_proto_cache_node_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteRequest) ProtoMessage() {}
+
+func (x *DeleteRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_shared_proto_cache_node_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteRequest.ProtoReflect.Descriptor instead.
+func (*DeleteRequest) Descriptor() ([]byte, []int) {
+	return file_shared_proto_cache_node_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *DeleteRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+type DeleteResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteResponse) Reset() {
+	*x = DeleteResponse{}
+	mi := &file_shared_proto_cache_node_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteResponse) ProtoMessage() {}
+
+func (x *DeleteResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_shared_proto_cache_node_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteResponse.ProtoReflect.Descriptor instead.
+func (*DeleteResponse) Descriptor() ([]byte, []int) {
+	return file_shared_proto_cache_node_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *DeleteResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
 var File_shared_proto_cache_node_proto protoreflect.FileDescriptor
 
 const file_shared_proto_cache_node_proto_rawDesc = "" +
@@ -229,10 +397,20 @@ const file_shared_proto_cache_node_proto_rawDesc = "" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value\"'\n" +
 	"\vSetResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess2c\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"\x13\n" +
+	"\x11GetAllKeysRequest\"(\n" +
+	"\x12GetAllKeysResponse\x12\x12\n" +
+	"\x04keys\x18\x01 \x03(\tR\x04keys\"!\n" +
+	"\rDeleteRequest\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\"*\n" +
+	"\x0eDeleteResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess2\xdd\x01\n" +
 	"\x05Cache\x12,\n" +
 	"\x03Get\x12\x11.cache.GetRequest\x1a\x12.cache.GetResponse\x12,\n" +
-	"\x03Set\x12\x11.cache.SetRequest\x1a\x12.cache.SetResponseB\x1aZ\x18shared/proto/cacheNodepbb\x06proto3"
+	"\x03Set\x12\x11.cache.SetRequest\x1a\x12.cache.SetResponse\x12A\n" +
+	"\n" +
+	"GetAllKeys\x12\x18.cache.GetAllKeysRequest\x1a\x19.cache.GetAllKeysResponse\x125\n" +
+	"\x06Delete\x12\x14.cache.DeleteRequest\x1a\x15.cache.DeleteResponseB\x1aZ\x18shared/proto/cacheNodepbb\x06proto3"
 
 var (
 	file_shared_proto_cache_node_proto_rawDescOnce sync.Once
@@ -246,20 +424,28 @@ func file_shared_proto_cache_node_proto_rawDescGZIP() []byte {
 	return file_shared_proto_cache_node_proto_rawDescData
 }
 
-var file_shared_proto_cache_node_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_shared_proto_cache_node_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_shared_proto_cache_node_proto_goTypes = []any{
-	(*GetRequest)(nil),  // 0: cache.GetRequest
-	(*GetResponse)(nil), // 1: cache.GetResponse
-	(*SetRequest)(nil),  // 2: cache.SetRequest
-	(*SetResponse)(nil), // 3: cache.SetResponse
+	(*GetRequest)(nil),         // 0: cache.GetRequest
+	(*GetResponse)(nil),        // 1: cache.GetResponse
+	(*SetRequest)(nil),         // 2: cache.SetRequest
+	(*SetResponse)(nil),        // 3: cache.SetResponse
+	(*GetAllKeysRequest)(nil),  // 4: cache.GetAllKeysRequest
+	(*GetAllKeysResponse)(nil), // 5: cache.GetAllKeysResponse
+	(*DeleteRequest)(nil),      // 6: cache.DeleteRequest
+	(*DeleteResponse)(nil),     // 7: cache.DeleteResponse
 }
 var file_shared_proto_cache_node_proto_depIdxs = []int32{
 	0, // 0: cache.Cache.Get:input_type -> cache.GetRequest
 	2, // 1: cache.Cache.Set:input_type -> cache.SetRequest
-	1, // 2: cache.Cache.Get:output_type -> cache.GetResponse
-	3, // 3: cache.Cache.Set:output_type -> cache.SetResponse
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+	4, // 2: cache.Cache.GetAllKeys:input_type -> cache.GetAllKeysRequest
+	6, // 3: cache.Cache.Delete:input_type -> cache.DeleteRequest
+	1, // 4: cache.Cache.Get:output_type -> cache.GetResponse
+	3, // 5: cache.Cache.Set:output_type -> cache.SetResponse
+	5, // 6: cache.Cache.GetAllKeys:output_type -> cache.GetAllKeysResponse
+	7, // 7: cache.Cache.Delete:output_type -> cache.DeleteResponse
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -276,7 +462,7 @@ func file_shared_proto_cache_node_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_shared_proto_cache_node_proto_rawDesc), len(file_shared_proto_cache_node_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

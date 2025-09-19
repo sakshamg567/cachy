@@ -7,6 +7,8 @@ option go_package = "shared/proto/cacheNodepb";
 service Cache {
    rpc Get(GetRequest) returns (GetResponse);
    rpc Set(SetRequest) returns (SetResponse);
+   rpc GetAllKeys(GetAllKeysRequest) returns (GetAllKeysResponse);
+   rpc Delete(DeleteRequest) returns (DeleteResponse);
 }
 
 message GetRequest {
@@ -24,5 +26,19 @@ message SetRequest {
 }
 
 message SetResponse {
+   bool success = 1;
+}
+
+message GetAllKeysRequest {}
+
+message GetAllKeysResponse {
+   repeated string keys = 1;
+}
+
+message DeleteRequest {
+   string key = 1;
+}
+
+message DeleteResponse {
    bool success = 1;
 }
