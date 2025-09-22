@@ -2,6 +2,8 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -9,6 +11,12 @@ import (
 )
 
 func main() {
+	port := flag.String("port", "8080", "port to run server on")
+	flag.Parse()
+
+	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
+	log.SetPrefix("[server] ")
+
 	addresses := []string{"localhost:50051", "localhost:50052", "localhost:50053"}
 
 	cd := coordinator.NewCoordinator(addresses)
@@ -56,5 +64,6 @@ func main() {
 		w.Write([]byte("Node addition process started"))
 	})
 
-	log.Fatal(http.ListenAndServe(":6969", nil))
+	log.Printf("listening on :%s nodes=%v", *port, addresses)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", *port), nil))
 }

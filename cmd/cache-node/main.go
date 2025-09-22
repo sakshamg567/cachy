@@ -15,6 +15,10 @@ func main() {
 	port := flag.String("port", "50051", "port to run cache node on")
 	flag.Parse()
 
+	// Add a distinctive prefix; keep standard flags (date/time)
+	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
+	log.SetPrefix(fmt.Sprintf("[cache-%s] ", *port))
+
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", *port))
 	if err != nil {
 		log.Fatalf("failed to listen : %v", err)
@@ -23,6 +27,6 @@ func main() {
 	grpcServer := grpc.NewServer()
 	node := cache.NewCacheNode(100)
 	cacheNodepb.RegisterCacheServer(grpcServer, node)
-	log.Printf("cache node running on port %s", *port)
+	log.Printf("starting capacity=%d", 100)
 	log.Fatal(grpcServer.Serve(lis))
 }
