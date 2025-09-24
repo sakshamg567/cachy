@@ -35,10 +35,10 @@ Cachy is a distributed caching system that automatically distributes data across
 ## Architecture
 
 ```
-┌─────────────────┐    HTTP     ┌──────────────────┐
-│   Client Apps   │ ────────────▶│  Server (8080)   │
-└─────────────────┘             │  (Coordinator)   │
-                                 └──────────────────┘
+┌─────────────────┐    HTTP      ┌─────────────────┐
+│   Client Apps   │ ────────────▶│  Server (8080)  │
+└─────────────────┘              │  (Coordinator)  │
+                                 └─────────────────┘
                                           │ gRPC
                     ┌─────────────────────┼─────────────────────┐
                     │                     │                     │
